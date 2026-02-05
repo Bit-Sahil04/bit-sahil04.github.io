@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Extractor & Viewer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <h1>Question Studio</h1>
+            </div>
+        </header>
+
+        <main>
+            <!-- Input View -->
+            <div id="input-view">
+                <div class="input-card">
+                    <p style="margin-bottom: 20px; color: var(--text-muted);">Paste the content of your source file
+                        (e.g., P2P2M1.txt) below to extract and view questions.</p>
+                    <textarea id="source-input" class="source-input"
+                        placeholder="Paste source content here..."></textarea>
+                    <button id="parse-btn" class="parse-btn" style="margin-top: 20px; width: 100%;">Parse & Render
+                        Questions</button>
+                    <div id="error-msg" style="color: var(--error-color); margin-top: 10px; display: none;">Could not
+                        find question data in the pasted text.</div>
+                </div>
+            </div>
+
+            <!-- Viewer View -->
+            <div id="viewer-view">
+                <div style="display: flex; justify-content: center;">
+                    <div class="global-toggle-container">
+                        <span class="toggle-label">Show All Solutions</span>
+                        <label class="switch">
+                            <input type="checkbox" id="global-solution-toggle">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <h2 id="test-title" style="text-align: center; margin-bottom: 40px; font-weight: 800;"></h2>
+
+                <div class="questions-list" id="questions-list">
+                    <!-- Questions will be injected here -->
+                </div>
+
+                <div style="text-align: center; margin-top: 60px;">
+                    <button id="back-btn" class="back-btn">← Back to Input</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

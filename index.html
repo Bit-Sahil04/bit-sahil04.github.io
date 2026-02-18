@@ -27,10 +27,13 @@
                         (e.g., P2P2M1.txt) below to extract and view questions.</p>
                     <textarea id="source-input" class="source-input"
                         placeholder="Paste source content here..."></textarea>
-                    <button id="parse-btn" class="parse-btn" style="margin-top: 20px; width: 100%;">Parse & Render
-                        Questions</button>
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button id="parse-btn" class="parse-btn" style="flex: 1;">Parse & Render Text</button>
+                        <button id="upload-json-btn" class="secondary-btn" style="flex: 1;">Load JSON File</button>
+                    </div>
+                    <input type="file" id="json-upload" accept=".json" style="display: none;">
                     <div id="error-msg" style="color: var(--error-color); margin-top: 10px; display: none;">Could not
-                        find question data in the pasted text.</div>
+                        find question data.</div>
                 </div>
             </div>
 

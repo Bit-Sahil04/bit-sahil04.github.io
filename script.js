@@ -8,6 +8,8 @@ const errorMsg = document.getElementById('error-msg');
 const questionsList = document.getElementById('questions-list');
 const testTitle = document.getElementById('test-title');
 const globalToggle = document.getElementById('global-solution-toggle');
+const uploadJsonBtn = document.getElementById('upload-json-btn');
+const jsonUploadInput = document.getElementById('json-upload');
 
 parseBtn.onclick = () => {
     const content = sourceInput.value;
@@ -48,6 +50,31 @@ parseBtn.onclick = () => {
     }
 };
 
+uploadJsonBtn.onclick = () => {
+    jsonUploadInput.click();
+};
+
+jsonUploadInput.onchange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        try {
+            questions = JSON.parse(event.target.result);
+            errorMsg.style.display = 'none';
+            showViewer();
+        } catch (err) {
+            console.error('JSON Parse error:', err);
+            errorMsg.innerText = 'Error parsing JSON file. Please ensure it is a valid JSON array.';
+            errorMsg.style.display = 'block';
+        }
+    };
+    reader.readAsText(file);
+    // Reset input so the same file can be uploaded again if needed
+    e.target.value = '';
+};
+
 backBtn.onclick = () => {
     inputView.style.display = 'flex';
     viewerView.style.display = 'none';
@@ -77,9 +104,21 @@ function renderAllQuestions() {
             <div class="question-text">${q.main_question}</div>
             <div class="options-container"></div>
             <div class="solution-panel">
-                <div style="font-weight: 800; margin-bottom: 10px; color: var(--primary-color);">REASONING / SOLUTION</div>
+                <div class="reasoning-header">
+                    <div class="info-icon">i</div>
+                    REASONING FROM DOCUMENT
+                </div>
                 <div class="reasoning">${q.answer_solution_english}</div>
             </div>
+            ${q.ai_analysis ? `
+            <div class="solution-panel">
+                <div class="reasoning-header">
+                    <div class="info-icon">i</div>
+                    AI ANALYSIS
+                </div>
+                <div class="reasoning">${q.ai_analysis}</div>
+            </div>
+            ` : ''}
         `;
 
         const optionsContainer = card.querySelector('.options-container');
@@ -106,12 +145,12 @@ function updateGlobalVisibility() {
 
     questions.forEach((q, idx) => {
         const card = questionsList.children[idx];
-        const solutionPanel = card.querySelector('.solution-panel');
+        const solutionPanels = card.querySelectorAll('.solution-panel');
         const options = card.querySelectorAll('.option');
         const correctIdx = parseInt(q.correct_answer);
 
         if (showAll) {
-            solutionPanel.classList.add('visible');
+            solutionPanels.forEach(panel => panel.classList.add('visible'));
             options.forEach((opt, optIdx) => {
                 if (optIdx === correctIdx) {
                     opt.classList.add('correct-auto');
@@ -120,7 +159,7 @@ function updateGlobalVisibility() {
                 }
             });
         } else {
-            solutionPanel.classList.remove('visible');
+            solutionPanels.forEach(panel => panel.classList.remove('visible'));
             options.forEach(opt => opt.classList.remove('correct-auto'));
         }
     });

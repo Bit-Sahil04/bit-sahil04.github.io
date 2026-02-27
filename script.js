@@ -15,6 +15,18 @@ parseBtn.onclick = () => {
     const content = sourceInput.value;
     if (!content.trim()) return;
 
+    // Attempt to parse as raw JSON first
+    try {
+        questions = JSON.parse(content);
+        if (Array.isArray(questions)) {
+            errorMsg.style.display = 'none';
+            showViewer();
+            return;
+        }
+    } catch (e) {
+        // If it fails, fallback to HTML/JS regex parsing
+    }
+
     // JavaScript regex equivalent to the Python script
     // Note: 's' flag (dotAll) allows . to match newlines
     const regex = /var\s+questionList\s*=\s*(\[.*?\]);/s;
@@ -44,7 +56,7 @@ parseBtn.onclick = () => {
                 errorMsg.style.display = 'block';
             }
         } else {
-            errorMsg.innerText = 'Could not find questionList variable in the pasted text.';
+            errorMsg.innerText = 'Could not find a valid JSON array or questionList variable in the pasted text.';
             errorMsg.style.display = 'block';
         }
     }

@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en" data-edition="morning">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Commonplace · notes, machines &amp; marginalia</title>
+<meta name="description" content="A commonplace book: notes, small machines, and marginalia, kept by someone who reads dictionaries for pleasure.">
+<meta name="theme-color" content="#f5f0e6" id="metaTheme">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext x='32' y='46' font-size='44' text-anchor='middle' fill='%23a03d1c' font-family='Georgia,serif'%3E%E2%9D%A6%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ————————————————————————————————
+   COMMONPLACE — two editions, one page
+   ———————————————————————————————— */
+:root{
+  --paper:#f5f0e6;
+  --paper-2:#faf7ef;
+  --paper-3:#ede7d8;
+  --ink:#211d16;
+  --ink-soft:#6b6353;
+  --accent:#a03d1c;
+  --accent-deep:#7c2d12;
+  --rule:rgba(33,29,22,.22);
+  --rule-soft:rgba(33,29,22,.12);
+  --mark:rgba(160,61,28,.20);
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+html[data-edition="evening"]{
+  --paper:#181510;
+  --paper-2:#1f1b14;
+  --paper-3:#262019;
+  --ink:#e9e1cf;
+  --ink-soft:#a79c85;
+  --accent:#d98e5f;
+  --accent-deep:#e6b58f;
+  --rule:rgba(233,225,207,.25);
+  --rule-soft:rgba(233,225,207,.12);
+  --mark:rgba(217,142,95,.24);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:clamp(1.05rem,.96rem + .38vw,1.24rem);
+  line-height:1.66;
+  font-optical-sizing:auto;
+  transition:background .5s ease,color .5s ease;
+}
+::selection{background:var(--mark);color:var(--ink)}
+a{color:var(--accent);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;transition:color .15s}
+a:hover{color:var(--ink)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:1px}
+h1,h2,h3,h4,p,dl,dd{margin:0}
+mark{background:none}
+
+.skip-link{
+  position:absolute;left:-9999px;top:0;
+  background:var(--ink);color:var(--paper);
+  font-family:var(--mono);font-size:.8rem;padding:.6rem 1rem;z-index:99;
+}
+.skip-link:focus{left:0}
+
+.wrap{max-width:1160px;margin:0 auto;padding-inline:clamp(1.25rem,5vw,3rem)}
+
+/* ————— masthead nav ————— */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule-soft);
+}
+.topbar-inner{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding-block:.7rem;
+}
+.brand{
+  font-family:var(--serif);font-style:italic;font-weight:500;
+  font-size:1.02rem;color:var(--ink);text-decoration:none;white-space:nowrap;
+}
+.brand .fleuron{color:var(--accent);font-style:normal;margin-right:.45rem}
+nav.toc-links{display:flex;gap:1.4rem;flex-wrap:wrap;justify-content:flex-end}
+nav.toc-links a{
+  font-family:var(--mono);font-size:.68rem;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);
+  text-decoration:none;transition:color .15s;
+}
+nav.toc-links a:hover{color:var(--accent)}
+nav.toc-links a span{color:var(--accent);margin-right:.3em}
+
+@media (max-width:720px){
+  .topbar-inner{flex-wrap:wrap;gap:.35rem 1rem;padding-block:.55rem}
+  .brand{order:1;margin-right:auto}
+  .edition{order:2}
+  .edition-label{display:none}
+  nav.toc-links{order:3;width:100%;justify-content:center;gap:.9rem}
+  nav.toc-links a{font-size:.6rem}
+}
+
+/* edition toggle */
+.edition{
+  display:flex;align-items:center;gap:.5rem;flex-shrink:0;
+}
+.edition-label{
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-soft);
+}
+.edition button{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+  background:none;border:1px solid var(--rule);color:var(--ink-soft);
+  padding:.32em .7em;cursor:pointer;transition:all .15s;
+}
+.edition button[aria-pressed="true"]{
+  background:var(--ink);color:var(--paper);border-color:var(--ink);
+}
+.edition button:hover:not([aria-pressed="true"]){color:var(--ink);border-color:var(--ink)}
+
+/* ————— hero title page ————— */
+.titlepage{
+  text-align:center;
+  padding:clamp(4rem,9vh,6.5rem) 0 clamp(2.5rem,5vh,4rem);
+}
+.masthead-line{
+  font-family:var(--mono);font-size:.7rem;font-weight:500;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft);
+  margin-bottom:2.2rem;
+}
+h1.site-title{
+  font-size:clamp(3.3rem,10vw,6.8rem);
+  font-weight:480;letter-spacing:-.018em;line-height:.98;
+  color:var(--ink);
+}
+.subtitle{
+  font-style:italic;font-size:clamp(1.05rem,2vw,1.3rem);
+  color:var(--ink-soft);margin-top:1.4rem;
+}
+.fleuron-big{
+  font-size:1.6rem;color:var(--accent);
+  margin-top:2rem;
+}
+hr.double{
+  border:0;border-top:4px double var(--rule);
+  margin:1.6rem auto 0;max-width:34rem;
+}
+.hero-meta{
+  font-family:var(--mono);font-size:.68rem;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);
+  margin-top:1.3rem;
+}
+.hero-meta .dot{color:var(--accent);margin-inline:.55em}
+
+/* opening prose */
+.prose{max-width:62ch}
+.opening-block{display:flex;justify-content:center;padding-bottom:3rem}
+.today-sentence{
+  border-left:2px solid var(--accent);
+  padding-left:1.1rem;margin-top:2rem;
+  font-size:.98rem;color:var(--ink-soft);
+}
+.today-sentence em{color:var(--ink)}
+.today-sentence .ts-label{
+  font-family:var(--mono);font-style:normal;font-size:.62rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--accent);
+  display:block;margin-bottom:.35rem;
+}
+
+.dropcap::first-letter{
+  float:left;
+  font-size:3.3em;line-height:.82;
+  padding:.04em .12em 0 0;
+  font-weight:600;color:var(--accent);
+}
+
+/* ————— contents ————— */
+.toc-block{padding-block:2.5rem 4.5rem;display:flex;justify-content:center}
+.contents{width:100%;max-width:34rem}
+.contents h2{
+  font-family:var(--mono);font-size:.7rem;font-weight:600;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);
+  text-align:center;margin-bottom:1.6rem;
+}
+.contents h2 span{display:block;font-family:var(--serif);font-style:italic;
+  text-transform:none;letter-spacing:0;font-size:.92rem;font-weight:400;margin-top:.3rem;color:var(--ink-soft)}
+.toc-row{
+  display:flex;align-items:baseline;gap:.9rem;
+  padding-block:.42rem;text-decoration:none;color:var(--ink);
+}
+.toc-row:hover .toc-title{color:var(--accent)}
+.toc-no{font-family:var(--mono);font-size:.72rem;color:var(--accent);width:1.6rem;flex-shrink:0}
+.toc-title{font-size:1.05rem;transition:color .15s}
+.toc-dots{flex:1;min-width:1.5rem;border-bottom:2px dotted var(--rule);transform:translateY(-.28em)}
+.toc-count{font-family:var(--mono);font-size:.68rem;color:var(--ink-soft);white-space:nowrap}
+.toc-note{
+  text-align:center;font-style:italic;font-size:.88rem;color:var(--ink-soft);
+  margin-top:1.4rem;
+}
+.toc-note a{color:var(--accent)}
+
+/* ————— sections ————— */
+section.part{padding-block:4.5rem;border-top:1px solid var(--rule-soft)}
+.sec-head{
+  display:flex;align-items:baseline;gap:1.1rem;flex-wrap:wrap;
+  border-bottom:1px solid var(--rule);
+  padding-bottom:.95rem;margin-bottom:.9rem;
+}
+.sec-no{font-family:var(--mono);font-size:.85rem;font-weight:600;color:var(--accent)}
+.sec-title{font-size:clamp(1.6rem,3.4vw,2.1rem);font-weight:560;letter-spacing:-.01em}
+.sec-tag{margin-left:auto;font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.sec-intro{font-style:italic;color:var(--ink-soft);font-size:1.02rem;max-width:58ch;margin-bottom:2.8rem}
+
+/* ————— marginalia ————— */
+.note{
+  display:grid;
+  grid-template-columns:3.2rem minmax(0,58ch) 1fr;
+  gap:.4rem 2.6rem;
+  padding-block:2rem;
+  border-bottom:1px dotted var(--rule);
+}
+.note:last-child{border-bottom:0}
+.note-num{
+  font-family:var(--mono);font-size:.78rem;font-weight:600;color:var(--accent);
+  padding-top:.45em;text-align:right;
+}
+.note h3{font-size:1.18rem;font-weight:600;margin-bottom:.65rem;letter-spacing:-.005em}
+.note-body p{font-size:1rem}
+.note-side{
+  font-family:var(--mono);font-size:.74rem;line-height:1.6;color:var(--ink-soft);
+  padding-top:.5em;
+}
+.note-side::before{content:"※ ";color:var(--accent)}
+
+@media (max-width:1080px){
+  .note{grid-template-columns:3.2rem minmax(0,1fr)}
+  .note-side{
+    grid-column:2;
+    border-left:2px solid var(--mark);
+    padding-left:.9rem;margin-top:.6rem;padding-top:.2rem;
+  }
+  .note-side::before{content:"※ ";color:var(--accent)}
+}
+@media (max-width:560px){
+  .note{grid-template-columns:1fr}
+  .note-num{text-align:left;padding-top:0}
+  .note-side{grid-column:1}
+}
+
+/* ————— machines ————— */
+.machine{
+  border:1px solid var(--rule);
+  background:var(--paper-2);
+  padding:clamp(1.4rem,3.5vw,2.4rem);
+  margin-bottom:2rem;
+  transition:background .5s ease,border-color .5s ease;
+}
+.machine-head{margin-bottom:1.2rem}
+.machine-no{
+  font-family:var(--mono);font-size:.66rem;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--accent);
+}
+.machine-head h3{font-size:1.45rem;font-weight:600;margin-top:.3rem}
+.machine-sub{font-style:italic;color:var(--ink-soft);font-size:.95rem;margin-top:.15rem}
+.machine-copy{font-size:1rem;max-width:62ch;margin-bottom:1.6rem}
+.machine-ui{border-top:1px dotted var(--rule);padding-top:1.4rem}
+
+.btn{
+  font-family:var(--mono);font-size:.68rem;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;
+  background:transparent;color:var(--ink);
+  border:1px solid var(--ink);
+  padding:.5em 1em;cursor:pointer;
+  transition:all .15s;
+}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn:active{transform:translateY(1px)}
+.btn-ghost{border-color:var(--rule);color:var(--ink-soft)}
+.btn-ghost:hover{border-color:var(--ink);color:var(--ink);background:transparent}
+
+.mono-note{font-family:var(--mono);font-size:.74rem;color:var(--ink-soft);line-height:1.7}
+.mono-note b{color:var(--accent);font-weight:600}
+
+/* concordance */
+.con-controls{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin-bottom:1.2rem}
+.con-controls input[type="search"]{
+  font-family:var(--mono);font-size:.8rem;
+  background:transparent;color:var(--ink);
+  border:0;border-bottom:1px solid var(--rule);
+  padding:.45em .1em;width:15rem;flex-shrink:1;
+}
+.con-controls input[type="search"]::placeholder{color:var(--ink-soft);opacity:.7}
+.con-controls input[type="search"]:focus{outline:none;border-bottom-color:var(--accent)}
+.check{
+  display:flex;align-items:center;gap:.5em;cursor:pointer;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--ink-soft);
+}
+.check input{accent-color:var(--accent);width:.95rem;height:.95rem}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem .8rem;margin-bottom:1rem}
+.chip{
+  font-family:var(--mono);font-size:.8rem;color:var(--ink);
+  background:none;border:0;padding:.15em .1em;cursor:pointer;
+  border-bottom:1px solid transparent;
+  transition:all .12s;
+}
+.chip:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.chip.on{background:var(--mark);color:var(--accent-deep)}
+html[data-edition="evening"] .chip.on{color:var(--accent)}
+.chip sup{font-size:.6rem;color:var(--accent);margin-left:.15em}
+.con-status{font-family:var(--mono);font-size:.74rem;color:var(--ink-soft);min-height:1.4em}
+.con-status b{color:var(--accent);font-weight:600}
+mark.kw{background:var(--mark);color:inherit;padding:.02em 0;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+mark.kw.pulse{animation:pulse 1.6s ease-out}
+@keyframes pulse{
+  0%{background:var(--accent);color:var(--paper)}
+  100%{background:var(--mark);color:inherit}
+}
+
+/* disparition */
+.letters{display:flex;flex-wrap:wrap;gap:.4rem;margin-block:1.2rem}
+.letters button{
+  font-family:var(--mono);font-size:.78rem;
+  width:2.3rem;height:2.3rem;
+  background:transparent;border:1px solid var(--rule);color:var(--ink-soft);
+  cursor:pointer;transition:all .15s;
+}
+.letters button:hover{border-color:var(--accent);color:var(--accent)}
+.letters button.active{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+
+.vanished{transition:color .7s ease}
+.vanished.gone{color:transparent}
+
+/* combinator */
+.poem{margin-block:1.2rem;max-width:34rem}
+.poem-row{
+  display:flex;align-items:baseline;gap:1rem;
+  padding-block:.7rem;
+  border-bottom:1px dotted var(--rule);
+}
+.poem-line{font-style:italic;font-size:1.18rem;flex:1;min-width:0}
+.poem-row button{
+  font-family:var(--mono);font-size:.85rem;
+  background:none;border:1px solid var(--rule);color:var(--ink-soft);
+  width:1.9rem;height:1.9rem;line-height:1;flex-shrink:0;
+  cursor:pointer;transition:all .15s;border-radius:50%;
+}
+.poem-row button:hover{border-color:var(--accent);color:var(--accent);transform:rotate(90deg)}
+.poem-foot{display:flex;flex-wrap:wrap;gap:1rem;align-items:baseline;justify-content:space-between;margin-top:1.1rem}
+
+/* ————— shelf ————— */
+.shelf-item{
+  display:flex;gap:1.5rem;align-items:baseline;
+  padding-block:1.3rem;border-bottom:1px dotted var(--rule);
+}
+.shelf-item:last-child{border-bottom:0}
+.shelf-main{flex:1;min-width:0}
+.shelf-main h3{font-size:1.12rem;font-weight:600;display:inline}
+.shelf-by{font-style:italic;color:var(--ink-soft);font-size:.95rem}
+.shelf-note{font-size:.98rem;margin-top:.3rem;color:var(--ink)}
+.tag{
+  font-family:var(--mono);font-size:.58rem;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent);border:1px solid var(--rule);
+  padding:.35em .7em;white-space:nowrap;flex-shrink:0;
+}
+@media (max-width:560px){.shelf-item{flex-direction:column;gap:.4rem}}
+
+/* ————— now ————— */
+.now-list{max-width:58ch}
+.now-list>div{
+  display:grid;grid-template-columns:9.5rem 1fr;gap:1.5rem;
+  padding-block:1rem;border-bottom:1px dotted var(--rule);
+}
+.now-list>div:last-child{border-bottom:0}
+.now-list dt{
+  font-family:var(--mono);font-size:.68rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+  padding-top:.45em;
+}
+.now-list dd{font-size:1rem}
+@media (max-width:560px){.now-list>div{grid-template-columns:1fr;gap:.2rem}}
+
+/* ————— colophon ————— */
+.colo-list{max-width:58ch}
+.colo-list>div{
+  display:grid;grid-template-columns:9.5rem 1fr;gap:1.5rem;
+  padding-block:1.1rem;border-bottom:1px dotted var(--rule);
+}
+.colo-list>div:last-child{border-bottom:0}
+.colo-list dt{
+  font-family:var(--mono);font-size:.68rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+  padding-top:.45em;
+}
+.colo-list dd{font-size:1rem}
+.colo-close{
+  margin-top:3rem;font-style:italic;color:var(--ink-soft);font-size:1.02rem;
+}
+.colo-close b{color:var(--accent);font-weight:400}
+
+/* ————— footer ————— */
+footer{
+  border-top:1px solid var(--rule);
+  padding-block:3.5rem 4rem;text-align:center;
+}
+footer .fleuron-big{margin-top:0}
+.foot-lines{margin-top:1.4rem}
+.foot-lines p{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-soft);
+  margin-top:.7rem;
+}
+.foot-lines p.foot-soft{font-family:var(--serif);font-style:italic;text-transform:none;
+  letter-spacing:0;font-size:.88rem}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+}
+
+/* ————— print: the most static a website gets ————— */
+@media print{
+  .topbar,.machine-ui,.edition,.skip-link{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .machine{border:1px solid #999;background:#fff}
+  a{color:#000;text-decoration:none}
+  section.part{page-break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<a class="skip-link" data-no-text href="#marginalia">Skip to content</a>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="#top"><span class="fleuron">❦</span>Commonplace</a>
+    <nav class="toc-links" aria-label="Sections">
+      <a href="#marginalia"><span>I</span>Marginalia</a>
+      <a href="#machines"><span>II</span>Machines</a>
+      <a href="#shelf"><span>III</span>Shelf</a>
+      <a href="#now"><span>IV</span>Now</a>
+      <a href="#colophon"><span>V</span>Colophon</a>
+    </nav>
+    <div class="edition" data-no-text>
+      <span class="edition-label">Ed.</span>
+      <button type="button" data-ed="morning" aria-pressed="true">Morning</button>
+      <button type="button" data-ed="evening" aria-pressed="false">Evening</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ———— title page ———— -->
+  <div class="wrap titlepage">
+    <p class="masthead-line">Being a small collection of notes, machines &amp; marginalia</p>
+    <h1 class="site-title">Commonplace</h1>
+    <p class="subtitle">kept by someone who reads dictionaries for pleasure, and alphabetizes the spice rack on bad days.</p>
+    <p class="fleuron-big" aria-hidden="true">❦</p>
+    <hr class="double">
+    <p class="hero-meta">
+      <span id="heroDate">—</span><span class="dot">·</span>
+      <span id="edLabel">Morning edition</span><span class="dot">·</span>
+      <span id="readingTime">about — minutes</span><span class="dot">·</span>
+      <span>no cookies, no tracking</span>
+    </p>
+  </div>
+
+  <div class="wrap opening-block">
+    <div class="prose">
+      <p class="dropcap">This is a commonplace book. The originals were notebooks in which careful people copied out whatever they could not afford to lose — quotations, recipes, arguments overheard on trains, the names of books they meant to read someday. This is that, except the notebook is a website and the glue is HTML. Nothing here is urgent, which is the point. Come in; the margins are warm.</p>
+      <p class="today-sentence">
+        <span class="ts-label">Today’s sentence</span>
+        <em id="todaySentence">…</em>
+      </p>
+    </div>
+  </div>
+
+  <!-- ———— contents ———— -->
+  <div class="wrap toc-block">
+    <div class="contents">
+      <h2>Contents<span>with word counts, because of course.</span></h2>
+      <a class="toc-row" href="#marginalia">
+        <span class="toc-no">I.</span><span class="toc-title">Marginalia</span>
+        <span class="toc-dots" aria-hidden="true"></span>
+        <span class="toc-count" id="tocCount-marginalia"></span>
+      </a>
+      <a class="toc-row" href="#machines">
+        <span class="toc-no">II.</span><span class="toc-title">Small Machines</span>
+        <span class="toc-dots" aria-hidden="true"></span>
+        <span class="toc-count" id="tocCount-machines"></span>
+      </a>
+      <a class="toc-row" href="#shelf">
+        <span class="toc-no">III.</span><span class="toc-title">The Shelf</span>
+        <span class="toc-dots" aria-hidden="true"></span>
+        <span class="toc-count" id="tocCount-shelf"></span>
+      </a>
+      <a class="toc-row" href="#now">
+        <span class="toc-no">IV.</span><span class="toc-title">Now</span>
+        <span class="toc-dots" aria-hidden="true"></span>
+        <span class="toc-count" id="tocCount-now"></span>
+      </a>
+      <a class="toc-row" href="#colophon">
+        <span class="toc-no">V.</span><span class="toc-title">Colophon</span>
+        <span class="toc-dots" aria-hidden="true"></span>
+        <span class="toc-count" id="tocCount-colophon"></span>
+      </a>
+      <p class="toc-note">There is also a <a href="#m-concordance">concordance of every word on this page</a>. It seemed necessary.</p>
+    </div>
+  </div>
+
+  <!-- ———— I. marginalia ———— -->
+  <section class="part" id="marginalia">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-no">I.</span>
+        <h2 class="sec-title">Marginalia</h2>
+        <span class="sec-tag">eight notes</span>
+      </div>
+      <p class="sec-intro">Notes from the edge of the page. The margins were always the best part of any book; this section exists so mine have somewhere to live.</p>
+
+      <article class="note">
+        <span class="note-num" aria-hidden="true">01</span>
+        <div class="note-body">
+          <h3>The ghost word</h3>
+          <p>In 1934, Webster’s dictionary printed the word <em>dord</em>, defined as “density.” It was not a word. It was a misreading of a note — “D or d, cont.” — by someone who assumed the world made sense. It stood for five years before anybody asked what it meant. I think about <em>dord</em> constantly: the most honest word in English, a pure typographic accident that everyone believed because it was set in the right font.</p>
+        </div>
+        <aside class="note-side">Dord lived in Webster’s Second from 1934 until 1939, when an editor finally went looking for its etymology and found a typo with confidence.</aside>
+      </article>
+
+      <article class="note">
+        <span class="note-num" aria-hidden="true">02</span>
+        <div class="note-body">
+          <h3>The 27th letter</h3>
+          <p>The ampersand used to come after Z. Schoolchildren reciting the alphabet said “X, Y, Z, and per se and” — <em>and per se and</em>, meaning “and, by itself, and.” Say it fast and the character invents itself out of pure repetition, which is more than most of us manage.</p>
+        </div>
+        <aside class="note-side">It began as “et” — Latin for “and” — drawn until the two letters closed around each other like a handshake.</aside>
+      </article>
+
+      <article class="note">
+        <span class="note-num" aria-hidden="true">03</span>
+        <div class="note-body">
+          <h3>On em dashes</h3>
+          <p>I use em dashes the way other people raise an eyebrow — often, and to make you slow down. I know they are having a moment. They were also having a moment in 1850. Good tools don’t have moments; they have tenures.</p>
+        </div>
+        <aside class="note-side">Yes, this note is about the discourse. No, I will not be taking questions.</aside>
+      </article>
+
+      <article class="note">
+        <span class="note-num" aria-hidden="true">04</span>
+        <div class="note-body">
+          <h3>The card catalog</h3>
+          <p>Before the search bar, we built a distributed database out of wood and patience, indexed it by hand, and it mostly worked. There were people whose entire job was writing cross-references — professional <em>see alsos</em>. Somewhere in my head there is still a drawer for every idea; the cards just migrate.</p>
+        </div>
+        <aside class="note-side">Libraries once printed pamphlets instructing patrons how to file cards correctly. People filed them wrong anyway. The most human fact I know.</aside>
+      </article>
+
+      <article class="note">
+        <span class="note-num" aria-hidden="true">05</span>
+        <div class="note-body">
+          <h3>Naming things</h3>
+          <p>Every variable named <code>temp</code> is a small act of surrender. So are <code>data</code>, <code>stuff</code>, and the function called <code>doIt()</code>. Naming is the actual work; everything else is typing. A thing you can name is a thing you can find at two in the morning.</p>
+        </div>
+        <aside class="note-side">There are two hard problems in computer science: cache invalidation, naming things, and off-by-one errors.</aside>
+      </article>
+
+      <article class="note">
+        <span class="note-num" aria-hidden="true">06</span>
+        <div class="note-body">
+          <h3>Animals, classified</h3>
+          <p>Borges reports a certain Chinese encyclopedia that divides animals into: those that belong to the Emperor; embalmed ones; trained ones; suckling pigs; mermaids; fabulous ones; stray dogs; those included in this classification; those that tremble as if mad; innumerable ones; those drawn with a very fine camelhair brush; others; those that have just broken a vase; and those that, from a distance, look like flies. The list is famous for failing to classify anything — which is how it succeeds. A good list doesn’t organize the world. It reveals that the world was never going to cooperate.</p>
+        </div>
+        <aside class="note-side">From “The Analytical Language of John Wilkins,” an essay that is itself a lovely trap.</aside>
+      </article>
+
+      <article class="note">
+        <span class="note-num" aria-hidden="true">07</span>
+        <div class="note-body">
+          <h3>Recipes are ratios</h3>
+          <p>The best recipes are ratios wearing costumes. Vinaigrette is 3:1 with opinions. Bread is flour, water, salt, and patience, in roughly that order. Pound cake is a pound of everything, including the naming convention. A cookbook that tells you the <em>why</em> beside the <em>how</em> is a place where the author trusted you.</p>
+        </div>
+        <aside class="note-side">Write the ratio on the inside of the cupboard door. You will never need the card again.</aside>
+      </article>
+
+      <article class="note">
+        <span class="note-num" aria-hidden="true">08</span>
+        <div class="note-body">
+          <h3>Rabbits with weapons</h3>
+          <p>Medieval monks doodled in the margins of the most expensive objects in Europe: knights fighting snails, dogs in court robes, rabbits at war. Nobody knows exactly why. The lesson is engraved somewhere in every margin: any sufficiently serious text will accumulate rabbits.</p>
+        </div>
+        <aside class="note-side">Search “knight fighting snail manuscript.” You will lose an afternoon and thank me for it.</aside>
+      </article>
+    </div>
+  </section>
+
+  <!-- ———— II. small machines ———— -->
+  <section class="part" id="machines">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-no">II.</span>
+        <h2 class="sec-title">Small Machines</h2>
+        <span class="sec-tag">three instruments</span>
+      </div>
+      <p class="sec-intro">Three small instruments, made of the same paper as the page they sit on. Each does exactly one thing, on the theory that a tool should be legible at a glance. Together they are the only part of this site that fidgets.</p>
+
+      <!-- machine 1 : concordance -->
+      <article class="machine" id="m-concordance">
+        <header class="machine-head">
+          <span class="machine-no">Machine № 1</span>
+          <h3>The Concordance</h3>
+          <p class="machine-sub">every word on this page, counted</p>
+        </header>
+        <p class="machine-copy">I built this because I wanted to know what the place is actually made of. Click a word to see where it lives.</p>
+        <div class="machine-ui" data-no-text>
+          <p class="mono-note" id="conStats">counting…</p>
+          <div class="con-controls">
+            <input type="search" id="conSearch" placeholder="find a word…" aria-label="Find a word in the concordance">
+            <label class="check"><input type="checkbox" id="conSmall"> hide the little words</label>
+            <button class="btn btn-ghost" type="button" id="conClear">clear highlights</button>
+          </div>
+          <div class="chips" id="conChips"></div>
+          <button class="btn btn-ghost" type="button" id="conAll">show every word</button>
+          <p class="con-status" id="conStatus"></p>
+        </div>
+      </article>
+
+      <!-- machine 2 : la disparition -->
+      <article class="machine" id="m-disparition">
+        <header class="machine-head">
+          <span class="machine-no">Machine № 2</span>
+          <h3>La Disparition</h3>
+          <p class="machine-sub">a lipogram, on demand</p>
+        </header>
+        <p class="machine-copy">In 1969, Georges Perec wrote a 300-page novel without the letter <em>e</em> — a constraint most people wouldn’t wish on a parking ticket, and he made it sing. This page is shorter, and far more cowardly, but the offer stands: choose a letter and watch it leave. Read through the holes. A letter is mostly visible when it is gone.</p>
+        <div class="machine-ui" data-no-text>
+          <p class="mono-note" id="disStats"></p>
+          <div class="letters" id="disLetters" role="group" aria-label="Choose a letter to remove"></div>
+          <p class="con-status" id="disStatus"></p>
+        </div>
+      </article>
+
+      <!-- machine 3 : combinator -->
+      <article class="machine" id="m-combinator">
+        <header class="machine-head">
+          <span class="machine-no">Machine № 3</span>
+          <h3>One Hundred Twenty-Five</h3>
+          <p class="machine-sub">a combinatorial poem</p>
+        </header>
+        <p class="machine-copy">Raymond Queneau printed a sonnet whose lines could be swapped ten ways, yielding a hundred trillion poems — about 190 million years of reading, which was the joke: more poetry than any life can hold. Here is a modest cousin. Three lines, five variants each. Click a line to swap it.</p>
+        <div class="machine-ui">
+          <div class="poem" id="poem">
+            <div class="poem-row">
+              <span class="poem-line" id="poemLine0">Morning arrives like a thought you almost had.</span>
+              <button type="button" data-line="0" aria-label="Swap line one">⟳</button>
+            </div>
+            <div class="poem-row">
+              <span class="poem-line" id="poemLine1">I copy down the sentences that I love.</span>
+              <button type="button" data-line="1" aria-label="Swap line two">⟳</button>
+            </div>
+            <div class="poem-row">
+              <span class="poem-line" id="poemLine2">And keep the rest for some slow afternoon.</span>
+              <button type="button" data-line="2" aria-label="Swap line three">⟳</button>
+            </div>
+          </div>
+          <div class="poem-foot">
+            <span class="mono-note" id="poemProgress"></span>
+            <button class="btn btn-ghost" type="button" id="poemAll">shuffle all</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ———— III. the shelf ———— -->
+  <section class="part" id="shelf">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-no">III.</span>
+        <h2 class="sec-title">The Shelf</h2>
+        <span class="sec-tag">nine things</span>
+      </div>
+      <p class="sec-intro">Books and tools I would rescue from a fire, in the order I thought of them. The annotations are the real list.</p>
+
+      <div class="shelf-item">
+        <div class="shelf-main">
+          <h3>A Void</h3> <span class="shelf-by">— Georges Perec, trans. Gilbert Adair</span>
+          <p class="shelf-note">The most elegant constraint ever pulled off in public. The translation is e-less too, which still feels like sorcery.</p>
+        </div>
+        <span class="tag">Book</span>
+      </div>
+      <div class="shelf-item">
+        <div class="shelf-main">
+          <h3>Invisible Cities</h3> <span class="shelf-by">— Italo Calvino</span>
+          <p class="shelf-note">Fifty-five cities, and every one of them is Venice, and every one of them is a thought you’ve had and never written down.</p>
+        </div>
+        <span class="tag">Book</span>
+      </div>
+      <div class="shelf-item">
+        <div class="shelf-main">
+          <h3>The Elements of Typographic Style</h3> <span class="shelf-by">— Robert Bringhurst</span>
+          <p class="shelf-note">The rare manual that is also a book of ethics. “Typography exists to honor content” — the whole craft in five words.</p>
+        </div>
+        <span class="tag">Book</span>
+      </div>
+      <div class="shelf-item">
+        <div class="shelf-main">
+          <h3>The Annotated Alice</h3> <span class="shelf-by">— Lewis Carroll, ed. Martin Gardner</span>
+          <p class="shelf-note">Proof that the best part of a book can be the footnotes — in a book that was already nothing but jokes.</p>
+        </div>
+        <span class="tag">Book</span>
+      </div>
+      <div class="shelf-item">
+        <div class="shelf-main">
+          <h3>Ficciones</h3> <span class="shelf-by">— Jorge Luis Borges</span>
+          <p class="shelf-note">Where I learned that a review of a book that doesn’t exist can outlive most books that do.</p>
+        </div>
+        <span class="tag">Book</span>
+      </div>
+      <div class="shelf-item">
+        <div class="shelf-main">
+          <h3>Gödel, Escher, Bach</h3> <span class="shelf-by">— Douglas Hofstadter</span>
+          <p class="shelf-note">A fugue disguised as a book. Read the Achilles-and-the-Tortoise dialogues first; they are the tune.</p>
+        </div>
+        <span class="tag">Book</span>
+      </div>
+      <div class="shelf-item">
+        <div class="shelf-main">
+          <h3>OneLook</h3> <span class="shelf-by">— onelook.com</span>
+          <p class="shelf-note">A reverse dictionary: describe the word on the tip of your tongue and it hands it back to you. Indispensable at two in the morning.</p>
+        </div>
+        <span class="tag">Tool</span>
+      </div>
+      <div class="shelf-item">
+        <div class="shelf-main">
+          <h3>Fonts In Use</h3> <span class="shelf-by">— fontsinuse.com</span>
+          <p class="shelf-note">A field guide to typography in the wild, catalogued with the seriousness of an ornithologist.</p>
+        </div>
+        <span class="tag">Tool</span>
+      </div>
+      <div class="shelf-item">
+        <div class="shelf-main">
+          <h3>“Great Vowel Shift”</h3> <span class="shelf-by">— Wikipedia</span>
+          <p class="shelf-note">The strongest evidence that English spelling is a room everyone agreed, long ago, to stop renovating.</p>
+        </div>
+        <span class="tag">Place</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ———— IV. now ———— -->
+  <section class="part" id="now">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-no">IV.</span>
+        <h2 class="sec-title">Now</h2>
+        <span class="sec-tag">this month, on the record</span>
+      </div>
+      <p class="sec-intro">A now page. First entry: September 2026. Updated monthly, like a good now page and a bad excuse.</p>
+      <dl class="now-list">
+        <div><dt>Reading</dt><dd><em>This Craft of Verse</em> — Borges lecturing about everything I already loved, in the order I came to love it.</dd></div>
+        <div><dt>Learning</dt><dd>to draw letters properly: the difference between a bowl, a spur, and an apology.</dd></div>
+        <div><dt>Making</dt><dd>this page. A website is never finished, only abandoned at a reasonable hour.</dd></div>
+        <div><dt>Listening</dt><dd>field recordings of rain on different surfaces, filed like albums.</dd></div>
+        <div><dt>Trying</dt><dd>to use fewer em dashes. You can see how it’s going.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ———— V. colophon ———— -->
+  <section class="part" id="colophon">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-no">V.</span>
+        <h2 class="sec-title">Colophon</h2>
+        <span class="sec-tag">how it’s made</span>
+      </div>
+      <p class="sec-intro">Colophons are the part of the book where the maker signs the work. This is that.</p>
+      <dl class="colo-list">
+        <div><dt>Type</dt><dd>Body and display set in <em>Newsreader</em>; machines and marginal notes in <em>IBM Plex Mono</em>. The italic does the emotional labor.</dd></div>
+        <div><dt>Paper</dt><dd>Two editions: <em>Morning</em> and <em>Evening</em>. The switch is in the masthead, and your choice is remembered by your own browser, politely and locally.</dd></div>
+        <div><dt>Construction</dt><dd>One hand-written HTML file. No framework, no build step, no cookie banner — there are no cookies. The only things stored are your edition and your progress through the 125 poems.</dd></div>
+        <div><dt>Print</dt><dd>If you print this page, the machines turn back into paragraphs. It is the most static a website gets, and there is honor in that.</dd></div>
+        <div><dt>Mark</dt><dd><span style="color:var(--accent);font-size:1.2em">❦</span> — the fleuron. The only decoration on this site that has never gone out of style.</dd></div>
+      </dl>
+      <p class="colo-close">Kept by someone who thinks a footnote is a love letter. <b>— September 2026</b></p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="fleuron-big" aria-hidden="true">❦</p>
+    <div class="foot-lines">
+      <p>Commonplace · handmade HTML · read slowly</p>
+      <p class="foot-soft">If you find a typo, keep it.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var body = document.body;
+
+  /* ———— helpers ———— */
+  function $(s){ return document.querySelector(s); }
+  function $all(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); }
+  function store(key, val){
+    try{
+      if(val === undefined) return localStorage.getItem(key);
+      localStorage.setItem(key, val);
+    }catch(e){ return null; }
+  }
+
+  /* ———— snapshot the page text BEFORE machines render ———— */
+  var snapshot = body.innerText;
+  var wordRe = /[a-zà-öø-ÿ]+(?:['’-][a-zà-öø-ÿ]+)*/g;
+  var words = (snapshot.toLowerCase().match(wordRe) || []);
+  var totalWords = words.length;
+  var counts = Object.create(null);
+  words.forEach(function(w){ counts[w] = (counts[w]||0) + 1; });
+  var distinct = Object.keys(counts).length;
+
+  /* ———— edition (morning / evening) ———— */
+  var edButtons = $all(".edition button");
+  function setEdition(ed){
+    document.documentElement.setAttribute("data-edition", ed);
+    edButtons.forEach(function(b){
+      b.setAttribute("aria-pressed", String(b.getAttribute("data-ed") === ed));
+    });
+    $("#edLabel").textContent = ed === "evening" ? "Evening edition" : "Morning edition";
+    $("#metaTheme").setAttribute("content", ed === "evening" ? "#181510" : "#f5f0e6");
+    store("cp-edition", ed);
+  }
+  edButtons.forEach(function(b){
+    b.addEventListener("click", function(){ setEdition(b.getAttribute("data-ed")); });
+  });
+  var savedEd = store("cp-edition");
+  if(!savedEd){
+    try{ savedEd = window.matchMedia("(prefers-color-scheme: dark)").matches ? "evening" : "morning"; }
+    catch(e){ savedEd = "morning"; }
+  }
+  setEdition(savedEd);
+
+  /* ———— today's sentence + hero meta ———— */
+  var SENTENCES = [
+    "The margin is where the reader talks back.",
+    "A well-named variable is worth three comments.",
+    "Every drawer is a museum of good intentions.",
+    "The table of contents is a promise; the index is a confession.",
+    "Underlining is the slowest form of applause.",
+    "A sentence should be load-bearing.",
+    "A small tool you love beats a large one you tolerate.",
+    "A dictionary is the only book you can open anywhere and be right.",
+    "Perfection is when there is nothing left to footnote.",
+    "History is a changelog with worse formatting.",
+    "Type is what language looks like when it thinks nobody’s watching.",
+    "Alphabetical order is a kindness, until it becomes an opinion."
+  ];
+  var now = new Date();
+  var startOfYear = new Date(now.getFullYear(), 0, 0);
+  var dayOfYear = Math.floor((now - startOfYear) / 864e5);
+  $("#todaySentence").textContent = SENTENCES[dayOfYear % SENTENCES.length];
+  $("#heroDate").textContent = now.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+  $("#readingTime").textContent = "about " + Math.max(1, Math.ceil(totalWords / 220)) + " minutes";
+
+  /* ———— contents: word counts per section ———— */
+  ["marginalia","machines","shelf","now","colophon"].forEach(function(id){
+    var el = document.getElementById(id);
+    var t = el ? (el.textContent || "").toLowerCase().match(wordRe) : null;
+    var n = t ? t.length : 0;
+    var cell = document.getElementById("tocCount-" + id);
+    if(cell) cell.textContent = n.toLocaleString() + " words";
+  });
+
+  /* =====================================================
+     MACHINE 1 — THE CONCORDANCE
+  ===================================================== */
+  var LITTLE = {};
+  ["the","a","an","and","or","of","to","in","is","it","that","this","on","for","with","as","be","are","was","were","i","you","my","your","its","at","by","from","but","not","so","if","there","here","what","which","when","how","all","one","out","up","do","have","will","can","about","into","more","just","me","we","they","he","she","his","her","their","our","no","than","then","only","some","any","who"]
+    .forEach(function(w){ LITTLE[w] = 1; });
+
+  var conChips = $("#conChips");
+  var conStatus = $("#conStatus");
+  var conAll = $("#conAll");
+  var showingAll = false;
+  var activeTerm = null;
+
+  $("#conStats").innerHTML =
+    "<b>" + totalWords.toLocaleString() + "</b> words on this page · <b>" +
+    distinct.toLocaleString() + "</b> distinct · mostly “the,” as usual.";
+
+  function chipWord(w){ return w; }
+  function renderChips(){
+    var list = Object.keys(counts);
+    list.sort(function(a,b){
+      return counts[b] - counts[a] || (a < b ? -1 : a > b ? 1 : 0);
+    });
+    var hideLittle = $("#conSmall").checked;
+    var filtered = list.filter(function(w){ return !hideLittle || !LITTLE[w]; });
+    var max = showingAll ? filtered.length : 24;
+    conChips.innerHTML = "";
+    filtered.slice(0, max).forEach(function(w){
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "chip" + (activeTerm === w ? " on" : "");
+      b.textContent = chipWord(w);
+      var sup = document.createElement("sup");
+      sup.textContent = counts[w];
+      b.appendChild(sup);
+      b.addEventListener("click", function(){ highlight(w); });
+      conChips.appendChild(b);
+    });
+    var rest = filtered.length - max;
+    conAll.style.display = rest > 0 || showingAll ? "" : "none";
+    conAll.textContent = showingAll
+      ? "show only the top words"
+      : "show every word (" + rest.toLocaleString() + " more)";
+  }
+  $("#conSmall").addEventListener("change", renderChips);
+  conAll.addEventListener("click", function(){ showingAll = !showingAll; renderChips(); });
+
+  $("#conSearch").addEventListener("input", function(e){
+    var q = e.target.value.trim().toLowerCase();
+    if(q.length < 2){ renderChips(); return; }
+    var hits = Object.keys(counts).filter(function(w){ return w.indexOf(q) !== -1; });
+    hits.sort(function(a,b){ return counts[b] - counts[a]; });
+    conChips.innerHTML = "";
+    hits.slice(0, 40).forEach(function(w){
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "chip";
+      b.textContent = w;
+      var sup = document.createElement("sup");
+      sup.textContent = counts[w];
+      b.appendChild(sup);
+      b.addEventListener("click", function(){ highlight(w); });
+      conChips.appendChild(b);
+    });
+  });
+
+  function clearMarks(){
+    $all("mark.kw").forEach(function(m){
+      m.parentNode.replaceChild(document.createTextNode(m.textContent), m);
+    });
+    body.normalize();
+    activeTerm = null;
+    conStatus.textContent = "";
+    $all(".chip.on").forEach(function(c){ c.classList.remove("on"); });
+  }
+  $("#conClear").addEventListener("click", clearMarks);
+
+  function highlight(term){
+    if(activeTerm === term){ clearMarks(); return; }
+    clearMarks();
+    activeTerm = term;
+    $all(".chip").forEach(function(c){
+      if(c.firstChild && c.firstChild.nodeValue === term) c.classList.add("on");
+    });
+    var rxTest = new RegExp("\\b" + term + "\\b", "i");
+    var rxSplit = new RegExp("\\b" + term + "\\b", "gi");
+    var walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(n){
+        var p = n.parentElement;
+        if(!p || p.closest("[data-no-text],script,style")) return NodeFilter.FILTER_REJECT;
+        return rxTest.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
+    });
+    var nodes = [];
+    while(walker.nextNode()) nodes.push(walker.currentNode);
+    var count = 0, first = null;
+    nodes.forEach(function(node){
+      var text = node.nodeValue;
+      rxSplit.lastIndex = 0;
+      var frag = document.createDocumentFragment();
+      var last = 0, m, hit = false;
+      while((m = rxSplit.exec(text))){
+        frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+        var mk = document.createElement("mark");
+        mk.className = "kw";
+        mk.textContent = m[0];
+        frag.appendChild(mk);
+        last = m.index + m[0].length;
+        count++;
+        if(!first) first = mk;
+        hit = true;
+      }
+      if(hit){
+        frag.appendChild(document.createTextNode(text.slice(last)));
+        node.parentNode.replaceChild(frag, node);
+      }
+    });
+    conStatus.innerHTML = count
+      ? "“<b>" + term + "</b>” — <b>" + count + "</b> occurrence" + (count === 1 ? "" : "s") + ", marked below."
+      : "“<b>" + term + "</b>” — somehow, nowhere.";
+    if(first){
+      first.scrollIntoView({ behavior: "smooth", block: "center" });
+      first.classList.add("pulse");
+      setTimeout(function(){ first.classList.remove("pulse"); }, 1700);
+    }
+  }
+  renderChips();
+
+  /* =====================================================
+     MACHINE 2 — LA DISPARITION
+  ===================================================== */
+  var disLetters = $("#disLetters");
+  var disStatus = $("#disStatus");
+  var disStats = $("#disStats");
+  var activeLetter = null;
+  var restoreTimer = null;
+
+  function countLetter(letter){
+    var rx = new RegExp(letter, "gi");
+    var w = document.createTreeWalker(body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(n){
+        var p = n.parentElement;
+        if(!p || p.closest("[data-no-text],script,style")) return NodeFilter.FILTER_REJECT;
+        return rx.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
+    });
+    var c = 0;
+    while(w.nextNode()){
+      var m = w.currentNode.nodeValue.match(rx);
+      if(m) c += m.length;
+    }
+    return c;
+  }
+  var eCount = countLetter("e");
+  disStats.innerHTML = "for reference: <b>e</b> — the most common letter in English — appears <b>" +
+    eCount.toLocaleString() + "</b> times on this page.";
+
+  "abcdefghijklmnopqrstuvwxyz".split("").forEach(function(ch){
+    var b = document.createElement("button");
+    b.type = "button";
+    b.textContent = ch;
+    b.setAttribute("aria-label", "remove the letter " + ch);
+    b.addEventListener("click", function(){
+      if(activeLetter === ch){ restoreLetters(); return; }
+      vanish(ch);
+    });
+    disLetters.appendChild(b);
+  });
+
+  function setVanishButton(letter, on){
+    $all("#disLetters button").forEach(function(b){
+      b.classList.toggle("active", !!letter && b.textContent === letter && on);
+    });
+  }
+
+  function vanish(letter){
+    clearTimeout(restoreTimer);
+    hardRestore();
+    activeLetter = letter;
+    setVanishButton(letter, true);
+    var rx = new RegExp(letter, "gi");
+    var walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(n){
+        var p = n.parentElement;
+        if(!p || p.closest("[data-no-text],script,style")) return NodeFilter.FILTER_REJECT;
+        return rx.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
+    });
+    var nodes = [];
+    while(walker.nextNode()) nodes.push(walker.currentNode);
+    var count = 0;
+    var spans = [];
+    nodes.forEach(function(node){
+      var text = node.nodeValue;
+      rx.lastIndex = 0;
+      var frag = document.createDocumentFragment();
+      var last = 0, m, hit = false;
+      while((m = rx.exec(text))){
+        frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+        var sp = document.createElement("span");
+        sp.className = "vanished";
+        sp.textContent = m[0];
+        frag.appendChild(sp);
+        spans.push(sp);
+        last = m.index + m[0].length;
+        count++;
+        hit = true;
+      }
+      if(hit){
+        frag.appendChild(document.createTextNode(text.slice(last)));
+        node.parentNode.replaceChild(frag, node);
+      }
+    });
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        spans.forEach(function(s){ s.classList.add("gone"); });
+      });
+    });
+    disStatus.innerHTML = "the letter <b>" + letter + "</b> — × <b>" + count +
+      "</b> — has left the page. read through the holes.";
+  }
+
+  function hardRestore(){
+    $all("span.vanished").forEach(function(s){
+      s.parentNode.replaceChild(document.createTextNode(s.textContent), s);
+    });
+    body.normalize();
+  }
+  function restoreLetters(){
+    if(!activeLetter) return;
+    var letter = activeLetter;
+    activeLetter = null;
+    setVanishButton(letter, false);
+    $all("span.vanished").forEach(function(s){ s.classList.remove("gone"); });
+    restoreTimer = setTimeout(hardRestore, 750);
+    disStatus.innerHTML = "the letter <b>" + letter + "</b> is back. you never notice a letter until it refuses.";
+  }
+
+  /* =====================================================
+     MACHINE 3 — ONE HUNDRED TWENTY-FIVE
+  ===================================================== */
+  var POEM = [
+    [
+      "Morning arrives like a thought you almost had.",
+      "The lamp makes an island of the desk.",
+      "Rain files past the window in soft paragraphs.",
+      "Evening sets its slow ink on the hills.",
+      "Snow is the sky revising its first draft."
+    ],
+    [
+      "I copy down the sentences that I love.",
+      "The pen lays its small bridge across the page.",
+      "A list is how I hold the world in place.",
+      "The margins fill with voices not my own.",
+      "I underline the world to keep it still."
+    ],
+    [
+      "And keep the rest for some slow afternoon.",
+      "And let the rest stay quiet in its drawer.",
+      "And call it finished, knowing that it isn’t.",
+      "And trust the rest to surface on its own.",
+      "And let tomorrow do the proofreading."
+    ]
+  ];
+  var idx = [0, 0, 0];
+  var seen = {};
+  try{ seen = JSON.parse(store("cp-poems") || "{}") || {}; }catch(e){ seen = {}; }
+
+  function poemKey(){ return idx.join("-"); }
+  function recordPoem(){
+    seen[poemKey()] = 1;
+    store("cp-poems", JSON.stringify(seen));
+    var n = Object.keys(seen).length;
+    $("#poemProgress").innerHTML = n >= 125
+      ? "you have read <b>all 125</b>. you may close the notebook."
+      : "you have read <b>" + n + "</b> of <b>125</b> possible poems.";
+  }
+  function renderPoem(){
+    idx.forEach(function(v, i){
+      document.getElementById("poemLine" + i).textContent = POEM[i][v];
+    });
+    recordPoem();
+  }
+  function randOther(i){
+    var next;
+    do { next = Math.floor(Math.random() * POEM[i].length); }
+    while(next === idx[i] && POEM[i].length > 1);
+    return next;
+  }
+  $all(".poem-row button").forEach(function(b){
+    b.addEventListener("click", function(){
+      var i = parseInt(b.getAttribute("data-line"), 10);
+      idx[i] = randOther(i);
+      renderPoem();
+    });
+  });
+  $("#poemAll").addEventListener("click", function(){
+    idx = idx.map(function(v, i){ return randOther(i); });
+    renderPoem();
+  });
+  renderPoem();
+})();
+</script>
+</body>
+</html>
